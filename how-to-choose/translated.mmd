@@ -1,0 +1,68 @@
+%% Please use double quotation marks for large text, otherwise characters such as Chinese punctuation cannot be used
+%% HTML syntax is supported in the text, such as line break, please use <br>
+%% support for Font Awesome icons
+%% For more syntax, see [Mermaid flowchart syntax](https://mermaidjs.github.io/flowchart.html)
+
+graph TB
+
+tag(fa:fa-tag ver. 1.1)
+style tag fill: #0000000a, stroke: #bfbfbf
+
+start["How to choose V2Ray scheme fa:fa-rocket"] -->
+  simple-way?(-"Mengxin? Too lazy to toss? In a hurry?"-)
+
+simple-way? -->
+  |No| speed?(-"Do you want speed? Or stability?"-)
+simple-way? -->
+  |Yes| buy["Buy, buy, buy! Please search for paid VPN SS V2Ray<br>convenient, fast, time-saving and labor-saving!"]
+
+speed? --> |stable| worry-sniff?(-"Mind if you might be detected using V2Ray?"-)
+speed? --> |speed| kcp["fa:fa-star KCP"]
+
+%% speed branch
+
+kcp --> more-speed?(-"Simple KCP speed is not ideal? Want to try a more complex configuration?"-)
+more-speed? -->
+  |Yes| kcp-udp2raw["fa:fa-star fa:fa-star fa:fa-star try KCP + udp2raw<br><i>*Note that udp2raw is difficult to use on mobile clients</i>"]
+
+kcp-udp2raw --> more-more-speed?(-"Still not powerful?"-)
+more-more-speed? -->
+  |"Yeah! I feel cheated!"| tcp-bbr["
+    fa:fa-star fa:fa-star fa:fa-star Adjust KCP parameters or try TCP + BBR<br>
+    <i>*Note that BBR requires specific system support, please refer to the relevant tutorial. </i><br>
+    <i>Because it is a low-level unilateral algorithm, it can be used in combination with other options</i>
+  "]
+
+%% stable branch
+
+worry-sniff? -->
+  |Don't worry about it | tcp-vmess["fa:fa-star TCP + Vmess"]
+worry-sniff? -->
+  |Working secretly| have-website?(-"Do you know how to build a website?<br>A website is already running on the server?"-)
+
+have-website? -->
+  |"No, don't know and don't want to know"| ws-or-obfu["fa:fa-star WebSocket, HTTP/2 or Vmess + masquerading"]
+have-website? -->
+  |"Yes! Coach! I want to learn this!"| https?(-"Want to hide V2Ray further?<br>Does the site support HTTPS?"-)
+
+https? -->
+  |It's always better to be safe | https-website["
+    fa:fa-star fa:fa-star Caddy + TLS + WebSocket, HTTP/2<br>
+    fa:fa-star fa:fa-star fa:fa-star Nginx/Apache/other + TLS + WebSocket, HTTP/2
+  "]
+https? -->
+  |"Forget it, it's too much trouble"| website["fa:fa-star fa:fa-star Caddy/Nginx/Apache/Other + WebSocket"]
+
+website --> cdn?
+https-website --> cdn?
+cdn?(-"Want to protect the host IP from being killed?<br>Even though the speed may be affected indefinitely?"-) -->
+  |"Yes, it's a little bit more stable"| cdn["fa:fa-star fa:fa-star Cloudflare and other CDNs<br><i>*Note that this difficulty level is unique to CDNs</i>"]
+
+
+note("<i>
+fa:fa-star means complex level, the more fa:fa-star, the more complex and the more difficult it is<br>
+Some options from speed classification and stable classification can be combined <br>
+To participate in modifying this picture, please go to github.com/v2fly/vTemplate
+</i>")
+
+style note stroke-width: 2px, stroke-dasharray: 5.5
